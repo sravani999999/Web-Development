@@ -1,0 +1,53 @@
+<%- include("partials/header.ejs") %>
+
+<form action="<%= editMode ? '/edit' : '/submit' %>" method="post">
+  <div class="mb-3 body-i">
+    <label for="exampleFormControlInput1" class="form-label"
+      >Email address</label
+    >
+    <input
+      type="email"
+      class="form-control"
+      id="exampleFormControlInput1"
+      placeholder="name@example.com"
+      name="emailName"
+      value="<%= editMode ? currentCard.emailName : '' %>"
+    />
+  </div>
+  <div class="mb-3 body-i">
+    <label for="exampleFormControlTextarea1" class="form-label"
+      >Example textarea</label
+    >
+    <textarea
+      class="form-control"
+      id="exampleFormControlTextarea1"
+      rows="3"
+      name="content"
+    >
+<%= editMode ? currentCard.content : '' %></textarea
+    >
+  </div>
+  <% if (editMode) { %>
+  <input type="hidden" name="index" value="<%= currentIndex %>" />
+  <% } %>
+  <button type="submit" class="btn btn-primary">
+    <%= editMode ? 'Update' : 'Submit' %>
+  </button>
+</form>
+
+<% if (cards && cards.length > 0) { %> <% cards.forEach((card, index1) => { %>
+<div class="card" style="width: 18rem; margin-top: 1rem">
+  <div class="card-body">
+    <h5 class="card-title"><%= card.emailName %></h5>
+    <p class="card-text"><%= card.content %></p>
+    <form action="/delete" method="post" style="display: inline">
+      <input type="hidden" name="index" value="<%= index1 %>" />
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    <form action="/edit" method="get" style="display: inline">
+      <input type="hidden" name="index" value="<%= index1 %>" />
+      <button type="submit" class="btn btn-outline-dark">Edit</button>
+    </form>
+  </div>
+</div>
+<% }) %> <% } %>
