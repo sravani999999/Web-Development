@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
   totalCorrect = 0;
   nextQuestion();
   console.log(currentQuestion);
-  res.render("index.ejs", { question: currentQuestion });
+  res.render("index.ejs", { question: currentQuestion , hint : currentQuestion.name[0]});
 });
 
 // POST a new post
@@ -56,6 +56,7 @@ app.post("/submit", (req, res) => {
     question: currentQuestion,
     wasCorrect: isCorrect,
     totalScore: totalCorrect,
+    hint : currentQuestion.name[0]
   });
 });
 
