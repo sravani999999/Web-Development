@@ -24,6 +24,7 @@ app.get("/", async (req, res) => {
   result.rows.forEach((country) => {
     countries.push(country.country_code);
   });
+  console.log("home");
   console.log(result.rows);
   res.render("index.ejs", { countries: countries, total: countries.length });
 
@@ -35,6 +36,7 @@ app.post("/add", async (req, res) => {
   const c = req.body.country;
   const result = await db.query("SELECT country_code FROM countries where country_name IN ($1)",[c]);
   const x = result.rows[0].country_code;
+  console.log("add");
   console.log(x);
   const result1 = await db.query("INSERT INTO visted_countries (country_code) VALUES ($1)",[x]);
   res.redirect("/");
